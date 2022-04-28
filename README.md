@@ -1,5 +1,7 @@
 # Smugetor
 
-Here we have a budgeting app, and a little of my humor because I love laughing and I enjoy personal projects more when I can just build them the way I want!
+According to Google, and there were a range of options, but betwen 60-90% of people stress about finances.........WOW! So I decided to build a silly budgetor app so you got atleast one laugh in every day!!
+
+built in Java and SpringBoot
 
 ![](https://github.com/lisabroadhead/smugetor/blob/main/Screen%20Shot%202022-04-28%20at%201.15.16%20PM.png)
