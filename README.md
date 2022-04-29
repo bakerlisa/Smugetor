@@ -1,8 +1,8 @@
 # Smugetor
 
-According to Google, and there were a range of options, but betwen 60-90% of people stress about finances.........WOW! So I decided to build a silly budgetor app so you got atleast one laugh in every day!! And yes it needs humar because finaces are stressful!
+According to Google betwen 60-90% of people stress about finances.........WOW! So I decided to build a silly budgetor app so you got atleast one laugh in every day!! And yes it needs humar because finaces are stressful, and it's my project!
 
-So have some laughs and keep track of your budget! So you can spend more money and keep track of that....aw the circle of life
+So have some laughs, keep track of your mu-law, and watch your progress.
 
 Built with: Java, SpringBoot, JS, HTML, custom CSS (no libraries)
 
