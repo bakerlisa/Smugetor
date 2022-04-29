@@ -6,4 +6,5 @@ built in Java and SpringBoot
 
 ![](https://github.com/lisabroadhead/smugetor/blob/main/Screen%20Shot%202022-04-28%20at%201.15.16%20PM.png)
 ![](https://github.com/lisabroadhead/Smugetor/blob/main/Screen%20Shot%202022-04-29%20at%201.06.49%20PM.png)
-![](https://github.com/lisabroadhead/Smugetor/blob/main/Screen%20Shot%202022-04-29%20at%201.06.49%20PM.png)
+![](https://github.com/lisabroadhead/Smugetor/blob/main/Screen%20Shot%202022-04-29%20at%201.06.57%20PM.png)
+![](https://github.com/lisabroadhead/Smugetor/blob/main/Screen%20Shot%202022-04-29%20at%201.06.57%20PM.png)
