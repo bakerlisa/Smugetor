@@ -39,75 +39,135 @@
  	</div>
  	
  	<div class="container">
- 		<h2>Current Budget</h2>
+ 		<h2>Current Budget </h2>
+		<c:set var="budgetsTrue" scope="session" value="false"/>
+  				
  		
  		<c:choose>
-  			<c:when test="${logged.budgets.size() > 0}">
-				<h4>${budget.name} - <span>$${budget.income}</span></h4>
-				<c:set var="salary" scope="session" value="0"/>
-				<c:if test = "${logged.budgets.size() > 0}">
-         			<div class="expenseWrp title">	
-         				<p class="icon"></p>
-         				<p class="expense">Expense</p>
-         				<p class="amount">Amount</p>
-         				<p class="action">Action</p>
-         			</div>
-         			
-         			<c:forEach var="temp" items="${ budget.temporary}">
-         				<c:if test = "${temp.tag != 'inactive'}">		
-         					<div class="expenseWrp">	
-         						<div class="icon"><!-- <i class="fa-solid fa-arrows-rotate"></i> --></div>
-         						<p class="expense type"><a href="/temporary/edit/${temp.id }/${budget.id}">${temp.type }</a></p>
-         						<p class="amount cost">$${temp.cost }</p>
-         						<p class="action"><a href="/temporary/edit/${temp.id }/${budget.id}"><i class="fa-solid fa-pencil"></i></a></p>
-         						<c:set var="salary" scope="session" value="${ salary + temp.cost }"/>
-         					</div>
-         				</c:if>
-         			</c:forEach>
-         			
-         			<c:forEach var="expense" items="${ budget.expenses}">
-         				<c:if test = "${expense.tag != 'inactive'}">	
-         					<div class="expenseWrp">	
-         						<div class="icon"><i class="fa-solid fa-arrows-rotate"></i></div>
-         						<p class="expense type"><a href="/expense/edit/${expense.id }/${budget.id}">${expense.type }</a></p>
-         						<p class="amount cost">$${expense.cost }</p>
-         						<p class="action"><a href="/expense/edit/${expense.id }/${budget.id}"><i class="fa-solid fa-pencil"></i></a></p>
-         						<c:set var="salary" scope="session" value="${ salary + expense.cost }"/>
-         					</div>
-         				</c:if>
-         			</c:forEach>
-         			
-         			
-         			
-     			</c:if>	
-     			
-     			<div class="expenseWrp totals">
-     				<p class="icon"><!-- <i class="fa-solid fa-equals"></i> --></p>
-     				<p class="expense">Unspent:</p>
-     				<c:choose>	
-     					<c:when test="${budget.income - salary > 0}">
-     						<p class="amount positive">$${budget.income - salary}</p>
-     					</c:when>
+  				<c:when test="${logged.budgets.size() > 0}">
+ 					<c:forEach var="bud" items="${logged.budgets }">
+ 						<c:choose>
+  							<c:when test="${bud.tag.equals('on')}">
+  							<c:set var="budgetID" scope="session" value="${bud.id}"/>
+  								<c:set var="budgetsTrue" scope="session" value="true"/>
+  								<h4>${bud.name } - <span>$${bud.income}</span></h4>
+  								
+  								<div class="expenseWrp title">	
+         							<p class="icon"></p>
+         							<p class="expense">Expense</p>
+         							<p class="amount">Amount</p>
+         							<p class="action">Action</p>
+         						</div>
+         						
+         						<!--  Temporary expenses -->
+         						<c:forEach var="temp" items="${ bud.temps}">
+         							<div class="expenseWrp">	
+         								<div class="icon">
+											<c:choose>
+												<c:when test="${temp.category.equals('birthday')}">
+													<i class="fa-solid fa-gift"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('clothing')}">
+													<i class="fa-solid fa-shirt"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('date')}">
+													<i class="fa-solid fa-champagne-glasses"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('education')}">
+													<i class="fa-solid fa-book"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('entertainment')}">
+													<i class="fa-solid fa-film"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('food')}">
+													<i class="fa-solid fa-apple-whole"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('kids')}">
+													<i class="fa-solid fa-children"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('miscellaneous')}">
+													<i class="fa-solid fa-cart-shopping"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('pet')}">
+													<i class="fa-solid fa-dog"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('tax')}">
+													<i class="fa-solid fa-sack-dollar"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('transportation')}">
+													<i class="fa-solid fa-car"></i>
+												</c:when>
+
+												<c:when test="${temp.category.equals('travel')}">
+													<i class="fa-solid fa-plane"></i>
+												</c:when>
+											</c:choose>
+
+										 </div>
+         								<p class="expense type"><a href="/temporary/edit/${temp.id }/${budgetID}">${temp.type }</a></p>
+         								<p class="amount cost">$${temp.cost }</p>
+         								<p class="action"><a href="/temporary/edit/${temp.id }/${budgetID}"><i class="fa-solid fa-pencil"></i></a></p>
+         							</div>
+         						</c:forEach>
+         						
+         						<!--  Monlthy expenses -->
+         						<c:forEach var="expense" items="${ bud.expenses}">
+         							<div class="expenseWrp">	
+         								<div class="icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+         								<p class="expense type"><a href="/expense/edit/${expense.id }/${budgetID}">${expense.type }</a></p>
+         								<p class="amount cost">$${expense.cost }</p>
+         								<p class="action"><a href="/expense/edit/${expense.id }/${budgetID}"><i class="fa-solid fa-pencil"></i></a></p>
+         						
+         							</div>					
+         						</c:forEach>
+         						
+         						<!--  Generates Total -->
+         						<div class="expenseWrp totals">
+     								<p class="icon"><!-- <i class="fa-solid fa-equals"></i> --></p>
+     								<p class="expense">Unspent:</p>
+     								<c:choose>	
+     									<c:when test="${bud.outcome > 0}">
+     										<p class="amount positive">$${bud.outcome}</p>
+     									</c:when>
      					
-     					<c:otherwise>
-     						<p class="amount negative">$${budget.income - salary}</p>
-     					</c:otherwise>
-     				</c:choose>
-     			</div>
-     			<div class="button-wrp">
-     				<a href="/temporary/${budget.id }" class="button temporary">Create Temporary Expense!</a>
-					<a href="/expense/${budget.id }" class="button recurring">Create Recurring Expense!</a>
-					<a href="/clear" class="clear">Clear</a>
-				</div>
-				
-  			</c:when> 
-  
-  			<c:otherwise>
-  				<h4>No Smugets...</h4>
-  				<a href="/new/smuget" class="button create">Create Smuget!</a>
-  			</c:otherwise>
-		</c:choose>
-		
+     									<c:otherwise>
+     										<p class="amount negative">$${bud.outcome}</p>
+     									</c:otherwise>
+     								</c:choose>
+     							</div>
+     							
+     							<!-- Buttons  -->
+     							<div class="button-wrp">
+     								<a href="/temporary/${bud.id }" class="button temporary">Create Temporary Expense!</a>
+									<a href="/expense/${bud.id }" class="button recurring">Create Recurring Expense!</a>
+									<a href="/clear" class="clear">Clear</a>
+								</div>
+         					
+  							</c:when> 
+  						</c:choose>
+ 					</c:forEach>
+ 					
+ 					
+ 				</c:when>
+ 		</c:choose>
+ 		
+ 		<c:if test = "${budgetsTrue == false}">	
+ 			<h4>No Active Smuget</h4>
+  			<a href="/new/smuget" class="button create">Create Smuget!</a>
+  			<!-- //put a  -->
+  		</c:if>
+ 		
+ 		
  	</div>
  	
     <footer>

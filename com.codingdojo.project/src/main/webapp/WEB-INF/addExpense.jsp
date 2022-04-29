@@ -33,12 +33,12 @@
     </nav>
     
     <!-- Beginning of Container -->
- 	<div class="banner">
+ 	<!-- <div class="banner">
  		<div class="txtWrp">
         	<h1>Add Expenses</h1>
        		<p class="subtitle">Stop being lazy. Everyone's busy and tired, Smugetor will help </p>
        	</div>
-     </div> 	
+     </div> 	 -->
         
 	<div class="container"> 
 		<h2>Recurring Monthly Expenses</h2>
@@ -56,8 +56,15 @@
  		</form:form>
  		
  		<div class="expenseList">
- 		
+ 			<h5>Current Recurring Expenses:</h5>
+ 			
+ 			<ul>
+ 				<c:forEach var="charge" items="${budget.expenses }">
+ 				<li>${ charge.type} - $${charge.cost }</li>
+ 				</c:forEach>
+ 			</ul>
  		</div>
+ 		<a href="/dashboard" class="button">Full Smuget</a>
     </div> <!-- End of Container -->
     
      <footer>

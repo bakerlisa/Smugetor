@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.codingdojo.project.models.Budget;
 import com.codingdojo.project.models.Expense;
 import com.codingdojo.project.models.User;
 import com.codingdojo.project.repositories.ExpenseRepository;
@@ -53,4 +54,6 @@ public class ExpenseService {
 	public void deleteExpense(Long id) {
 		expRepo.deleteById(id);
 	}
+	
+
 }

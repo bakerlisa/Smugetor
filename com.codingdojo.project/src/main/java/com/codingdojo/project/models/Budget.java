@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,7 +33,12 @@ public class Budget {
 	private String name;
 	
 	@NotNull(message="You must input an income")
+	@Min(1)
 	private double income;
+	
+	private double outcome;
+	private String tag;
+	private String searchDate;
 	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -50,44 +55,61 @@ public class Budget {
     private List<Expense> expenses;
     
     @OneToMany(mappedBy="budget", fetch = FetchType.LAZY)
-    private List<Temporary> temporary;
+    private List<Temporary> temps;
 
     // ================================ CONSTRUCTORS ================================
     public Budget() {
 		super();
 	}
-    
-    public Budget(Long id, @NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
-			@NotNull(message = "You must input an income") double income, Date createdAt, Date updatedAt, User user,
-			List<Expense> expenses, List<Temporary> temporary) {
+
+	
+
+	public Budget(@NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
+			@NotNull(message = "You must input an income") @Min(1) double income, double outcome, String tag,
+			String searchDate) {
+		super();
+		this.name = name;
+		this.income = income;
+		this.outcome = outcome;
+		this.tag = tag;
+		this.searchDate = searchDate;
+	}
+
+	public Budget(@NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
+			@NotNull(message = "You must input an income") @Min(1) double income, double outcome, String tag,
+			String searchDate, User user, List<Expense> expenses, List<Temporary> temps) {
+		super();
+		this.name = name;
+		this.income = income;
+		this.outcome = outcome;
+		this.tag = tag;
+		this.searchDate = searchDate;
+		this.user = user;
+		this.expenses = expenses;
+		this.temps = temps;
+	}
+
+
+
+	public Budget(Long id, @NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
+			@NotNull(message = "You must input an income") @Min(1) double income, double outcome, String tag,
+			String searchDate, Date createdAt, Date updatedAt, User user, List<Expense> expenses,
+			List<Temporary> temps) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.income = income;
+		this.outcome = outcome;
+		this.tag = tag;
+		this.searchDate = searchDate;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.user = user;
 		this.expenses = expenses;
-		this.temporary = temporary;
+		this.temps = temps;
 	}
 
-	public Budget(@NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
-			@NotNull(message = "You must input an income") double income, User user, List<Expense> expenses,
-			List<Temporary> temporary) {
-		super();
-		this.name = name;
-		this.income = income;
-		this.user = user;
-		this.expenses = expenses;
-		this.temporary = temporary;
-	}
 
-	public Budget(@NotNull @Size(min = 2, max = 100, message = "Name cannot be blank") String name,
-			@NotNull(message = "You must input an income") double income) {
-		super();
-		this.name = name;
-		this.income = income;
-	}
 
 	// ================================ GETTERS / SETTERS ================================
 	public Long getId() {
@@ -132,13 +154,37 @@ public class Budget {
 	public void setExpenses(List<Expense> expenses) {
 		this.expenses = expenses;
 	}
-	public List<Temporary> getTemporary() {
-		return temporary;
+	public List<Temporary> getTemps() {
+		return temps;
 	}
-	public void setTemporary(List<Temporary> temporary) {
-		this.temporary = temporary;
+
+	public void setTemps(List<Temporary> temps) {
+		this.temps = temps;
 	}
-	
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	public double getOutcome() {
+		return outcome;
+	}
+
+	public void setOutcome(double outcome) {
+		this.outcome = outcome;
+	}
+
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
+	}
+
 	@PreUpdate
     protected void onUpdate(){
         this.updatedAt = new Date();

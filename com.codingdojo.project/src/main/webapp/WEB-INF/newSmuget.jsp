@@ -22,7 +22,7 @@
 	<nav>
     	<div>		
     		<a href="/dashboard" class="logo">SMUGETOR</a>
-    		<span>${logged.firstName } ${logged.lastName }</span>
+    		<span>${userName.firstName } ${userName.lastName }</span>
     	</div>
     	<div class="navWrp">
     		<a href="/new/smuget" class="tooltip"><i class="fa-solid fa-circle-dollar-to-slot"></i><span class="tooltiptext">New Budget</span></a>
@@ -41,24 +41,69 @@
  	
  	<div class="container">
  		<h2>New Smuget</h2>
+ 	
  		
  		<form:form action="/api/add/budget" method="post" modelAttribute="budget">
  			<div>
  				<span>
  					<form:label path="name">Dub thy Smuget:</form:label>
- 					<form:errors path="name" class="error"/>
  				</span>
  				<form:input path="name" type="text" />
+ 				<form:errors path="name" class="error"/>
  			</div>
  			
  			<div>
  				<span>
  					<form:label path="income">Monthly Income:</form:label>
- 					<form:errors path="income" class="error"/>
  				</span>
  				<form:input path="income" type="text" />
+ 				<form:errors path="income" class="error"/>
  			</div>
  			
+ 			<c:choose>
+  				<c:when test="${userName.budgets.size() > 0}">
+   
+ 				<div>
+ 					<label for="copy">Copy a previous months recurring payments: </label>
+ 					<select name="copy">
+ 						<option value="0">Leave Blank</option>
+ 						<c:forEach var="bud" items="${ userName.budgets }">
+							<c:choose>
+								<c:when test='${bud.tag.equals("on")}'>
+									<option class="current" value="${bud.id}">** ${bud.name }</option>
+								</c:when>
+
+								<c:otherwise>
+									<option value="${bud.id}">${bud.name }</option>
+								</c:otherwise>
+							  </c:choose>
+						 		
+ 						</c:forEach>
+ 					</select>
+ 				</div>
+ 			</c:when>
+ 			
+ 			 <c:otherwise>
+ 			 	<input type="hidden" name="copy" value="0" />
+ 			 </c:otherwise>
+ 			 
+		</c:choose>
+ 			
+ 			
+ 			<div class="checkbox">
+ 				<input type="checkbox" name="tag" checked />
+ 				<label name="tag">Activate Budget:</label>	
+ 			</div>
+ 			
+ 			<div class="current">
+ 				<span class="title">Current active budget is: </span>
+ 				<c:forEach var="buds" items="${userName.budgets }">
+ 					<c:if test='${buds.tag.equals("on")}'>		
+ 						<span>${buds.name }</span>
+ 					</c:if>
+ 				</c:forEach>
+ 			</div>
+
  			<input type="hidden" name="user" value="${userName.id }" />
  			<input type="submit" value="Next" class="submit"/>
  		</form:form>

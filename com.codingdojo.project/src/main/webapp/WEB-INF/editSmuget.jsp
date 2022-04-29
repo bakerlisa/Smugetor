@@ -32,18 +32,17 @@
     	</div>
     </nav>
     
-    <div class="banner">
+    <!-- <div class="banner">
     	<div class="txtWrp">
     		<h1>Edit Expense </h1>
-    		<p class="subtitle">Don't be goosed. </p>
+    		<p class="subtitle">Don't be goosed. 80% of people do budget </p>
     	</div>
-    </div>
+    </div> -->
     
     <div class="container"> <!-- Beginning of Container -->
 		<h2>Edit Recurring Payment: <span>${exp.type }</span></h2>
-		<p class="red">Changing here, changes <strong>EVERY</strong> instance. If you don't want to mess with the history of pervious budgets - make item inactive and create a new  recurring monthly charge </p>
         <form:form method="post" action="/api/update/expense/${exp.id }/${bud.id}" modelAttribute="expense">
- 			<span class="wrp flex">	
+ 			<span class="flex">	
  				<div>
  					<form:input type="text" path="type" placeholder="Expense..."  value="${exp.type }" />
  					<form:errors class="error" path="type"/>
@@ -52,21 +51,21 @@
  					<form:input type="number" path="cost" step="0.01" placeholder="$..." value="${exp.cost }" />
  					<form:errors class="error" path="cost"/>
  				</div>
- 				<div>
- 					<form:select path="tag">
- 						<option value="active">Active</option>
- 						<option value="inactive">Inactive</option>
- 					</form:select>
- 				</div>
+ 				
+ 				<input type="hidden" name="old" value="${exp.cost }" />
  				<form:input type="hidden" path="id"  value="${exp.id }"/>
  				<form:input type="hidden" path="budget"  value="${bud.id }"/>
  				<input class="submit" type="submit" value="Edit" />
  			</span>
  		</form:form> 
- 		<form action="/delete/expense/${exp.id}" method="post" class="delete">
-    		<input type="hidden" name="_method" value="delete">
-    		<input type="submit" value="Delete">
-		</form>
+ 		
+ 		<div class="buttonWrp">
+ 			<a href="/dashboard" class="cancel">Cancel</a>
+ 			<form action="/delete/expense/${exp.id}" method="post" class="delete">
+    			<input type="hidden" name="_method" value="delete">
+    			<input type="submit" value="Delete">
+			</form>
+		</div>
       	
         
         

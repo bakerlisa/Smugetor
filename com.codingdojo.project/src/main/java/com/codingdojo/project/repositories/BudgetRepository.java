@@ -1,6 +1,7 @@
 package com.codingdojo.project.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 
@@ -14,8 +15,8 @@ import com.codingdojo.project.models.Budget;
 public interface BudgetRepository extends CrudRepository<Budget, Long> {
 	List<Budget> findAll();
 	
-//	List<Object> findByCreatedateBetween(LocalDate start,LocalDate end);
+	Optional<Budget> findByTag(String active);
 	
-//	@Query("select e from Event e where year(e.eventDate) = ?1 and month(e.eventDate) = ?2")
-//	List<Budget> getByYearAndMonth(int year, int month);
+	
+	List<Budget> findBySearchDateLike(String data);
 }

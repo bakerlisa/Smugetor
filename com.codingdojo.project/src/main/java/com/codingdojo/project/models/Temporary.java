@@ -36,6 +36,8 @@ public class Temporary {
 	
 	private String tag;
 	
+	private String category; 
+	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
@@ -53,36 +55,38 @@ public class Temporary {
 		super();
 	}
     
-    public Temporary(Long id, @NotNull @Size(min = 2, max = 100, message = "Expense needs a name") String type,
-			@NotNull(message = "Cost cannot be empty") @Min(0) double cost,
-			@NotNull @Size(min = 2, max = 100) String tag, Date createdAt, Date updatedAt, Budget budget) {
+	public Temporary(Long id, @NotNull @Size(min = 2, max = 100, message = "Expense needs a name") String type,
+			@NotNull(message = "Cost cannot be empty") @Min(0) double cost, String tag, String category, Date createdAt,
+			Date updatedAt, Budget budget) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.cost = cost;
 		this.tag = tag;
+		this.category = category;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.budget = budget;
 	}
-    
+
 	public Temporary(@NotNull @Size(min = 2, max = 100, message = "Expense needs a name") String type,
-			@NotNull(message = "Cost cannot be empty") @Min(0) double cost,
-			@NotNull @Size(min = 2, max = 100) String tag, Budget budget) {
+			@NotNull(message = "Cost cannot be empty") @Min(0) double cost, String tag, String category,
+			Budget budget) {
 		super();
 		this.type = type;
 		this.cost = cost;
 		this.tag = tag;
+		this.category = category;
 		this.budget = budget;
 	}
 
 	public Temporary(@NotNull @Size(min = 2, max = 100, message = "Expense needs a name") String type,
-			@NotNull(message = "Cost cannot be empty") @Min(0) double cost,
-			@NotNull @Size(min = 2, max = 100) String tag) {
+			@NotNull(message = "Cost cannot be empty") @Min(0) double cost, String tag, String category) {
 		super();
 		this.type = type;
 		this.cost = cost;
 		this.tag = tag;
+		this.category = category;
 	}
 
 	// ================================ GETTERS / SETTERS ================================
@@ -141,6 +145,15 @@ public class Temporary {
 	public void setBudget(Budget budget) {
 		this.budget = budget;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();

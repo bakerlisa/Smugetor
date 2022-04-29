@@ -32,38 +32,41 @@
     	</div>
     </nav>
     
-    <div class="banner">
+	<div class="banner">
     	<div class="txtWrp">
-    		<h1>Personal Settings</h1>
-    		<p>I say good chap! What a day!</p>
+    		<h1> Edit Settings </h1>
+    		<p class="subtitle">Yup. I feel you bear, welcome to adulthood</p>
     	</div>
+		<div class="formWrp">
+			<h3>Edit Settings:</h3>
+			<form:form method="post" action="/api/update/user" modelAttribute="user" >
+				<div>
+					<form:input path="firstName" type="text" placeholder="First Name:" value="${logged.firstName }"/>
+					<form:errors path="firstName" class="error" />
+				</div>
+				<div>
+					<form:input path="lastName" type="text"  placeholder="Last Name:"  value="${logged.lastName }"/>
+					<form:errors path="lastName" class="error" />
+				</div>
+						
+				<div>
+					<form:input path="email" type="email" placeholder="Email:"  value="${logged.email }"/>
+					<form:errors path="email" class="error" />
+				</div>
+				
+				<form:input path="password" type="hidden" value="${logged.password }"/>
+				<form:input path="confirm" type="hidden" value="${logged.password }"/>
+				<input type="hidden" name="id" value="${logged.id }" />
+				<input type="submit" value="Update" class="submit" />
+			</form:form>
+		</div>
     </div>
     	
-    <div class="container">
-    	<h2>Edit Settings:</h2>
-    	<form:form method="post" action="/api/update/user" modelAttribute="user" >
-			<div>
-				<form:input path="firstName" type="text" placeholder="First Name:" value="${logged.firstName }"/>
-				<form:errors path="firstName" class="error" />
-			</div>
-			<div>
-				<form:input path="lastName" type="text"  placeholder="Last Name:"  value="${logged.lastName }"/>
-				<form:errors path="lastName" class="error" />
-			</div>
-					
-			<div>
-				<form:input path="email" type="email" placeholder="Email:"  value="${logged.email }"/>
-				<form:errors path="email" class="error" />
-			</div>
-			
-			<form:input path="password" type="hidden" value="${logged.password }"/>
-			<form:input path="confirm" type="hidden" value="${logged.password }"/>
-			<input type="hidden" name="id" value="${logged.id }" />
-			<input type="submit" value="Update" class="submit" />
-		</form:form>
+    <%-- <div class="container">
+    	
 		
 		
-		<%-- <h2>Update Password:</h2>
+		<h2>Update Password:</h2>
 		<form:form method="post" action="/api/update/password" modelAttribute="password" >
 			<div>
 				<form:input path="password" type="password" placeholder="Password" />
@@ -80,8 +83,8 @@
 			<input name="email" type="hidden" value="${logged.email }"/>
 			<input name="id" type="hidden" value="${logged.id }" />
 			<input type="submit" value="Update" class="submit" />
-		</form:form> --%>
-    </div>
+		</form:form> 
+    </div>--%>
     
  	<footer>
     	<p>Smugetor™ 2022 - Coding Dojo, Java Stack Project - by: Lisa Broadhead </p>

@@ -31,10 +31,10 @@
     	</div>
     </nav>
     
-    <div class="banner">
+     <div class="banner">
     	<div class="txtWrp">	
-    		<h1>History</h1>
-    		<p class="subtitle">Stop fussing. It's only bad if<br/> you didn't follow the budget </p>
+    		<h1>Smuget History</h1>
+    		<p class="subtitle">Wait wait wait...you bought what for how much?</p>
     	</div>
  	</div>
  	
@@ -58,6 +58,35 @@
  			<input type="number" name="year" class="year" placeholder="Year..." />
  			<input type="submit" value="Search" class="submit"/>
  		</form>
+ 		
+ 		<div class="pervious">
+ 		
+ 			<div class="allBudWrp">
+ 				<c:choose>
+  					<c:when test="${logged.budgets.size() > 0}">
+ 						<c:forEach var="bud" items="${logged.budgets }">
+ 							<a href="/history/${bud.id }" class="budgetsIndv">	
+ 								<p class="title" >${bud.name }</p>
+ 								<p class="amount">
+ 									<c:choose>
+  										<c:when test="${bud.outcome > 0 }">
+											<i class="fa-solid fa-caret-up"></i>
+  										</c:when>
+  										
+  										<c:otherwise>
+  											<i class="fa-solid fa-caret-down"></i>
+										</c:otherwise>
+									</c:choose>
+ 									Budget: $${bud.income }
+ 								</p>
+ 								<p><fmt:formatDate value="${bud.createdAt }" pattern="MMMMM"/> <fmt:formatDate value="${bud.createdAt }" pattern="y"/> </p>
+							</a>
+ 						</c:forEach>
+ 					</c:when>
+ 				</c:choose>
+ 			</div>
+ 		
+ 		</div>
  	</div>
  	
     <footer>

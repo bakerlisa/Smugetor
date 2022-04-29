@@ -32,15 +32,16 @@
     	</div>
     </nav>
     
-     <div class="banner">
+     <!-- <div class="banner">
     	<div class="txtWrp">	
     		<h1>Temporary Expense</h1>
     		<p class="subtitle">Wait wait wait...you bought what for how much?</p>
     	</div>
- 	</div>
+ 	</div> -->
  	
  	<div class="container">
- 		<h2>Temp Expense</h2>
+ 		<h2>Temporary Expense</h2>
+		 <p style="text-align:center">Expenses Unquie to this month</p>
  		
  		<form:form action="/api/add/temporary/${budget.id }" method="post" modelAttribute="temporary">
  			<div>
@@ -58,11 +59,42 @@
  				</span>
  				<form:input path="cost" type="text" />
  			</div>
- 			<input type="hidden" name="budget" value="${logged.id }" />
+
+
+			<div>
+				<form:label path="category">Category:</form:label>
+			   <form:select path="category">
+				   <form:option value="">Leave Blank</form:option>
+				   <form:option value="birthday">Birthday/Holiday</form:option>
+				   <form:option value="clothing">Clothing</form:option>
+				   <form:option value="date">Date</form:option>
+				   <form:option value="education">Education</form:option>
+				   <form:option value="entertainment">Entertainment</form:option>
+				   <form:option value="food">Food</form:option>
+				   <form:option value="kids">Kids</form:option>
+				   <form:option value="miscellaneous">Miscellaneous</form:option>
+				   <form:option value="pet">Pet</form:option>
+				   <form:option value="tax">Taxes</form:option>
+				   <form:option value="transportation">Transportation</form:option>
+				   <form:option value="travel">Travel</form:option>
+			   </form:select>
+			</div>
+ 			<input type="hidden" name="budget" value="${budget.id }" />
  			<input type="submit" value="Add" class="submit"/>
  		</form:form>
- 	</div>
-	
+ 	
+			<div class="expenseList">
+ 				<h5>Current Recurring Expenses:</h5>
+ 			
+ 				<ul>
+ 					<c:forEach var="charge" items="${budget.temps }">
+ 						<li>${ charge.type} - $${charge.cost }</li>
+ 					</c:forEach>
+ 				</ul>
+ 			</div>
+ 			<a href="/dashboard" class="button">Full Smuget</a>
+ 		</div>
+ 	
 	 <footer>
     	<p>Smugetor™ 2022 - Coding Dojo, Java Stack Project - by: Lisa Broadhead </p>
     </footer>

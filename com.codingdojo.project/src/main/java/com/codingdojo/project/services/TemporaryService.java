@@ -44,6 +44,7 @@ public class TemporaryService {
 			thisTemp.setType(temporary.getType());
 			thisTemp.setCost(temporary.getCost()); 
 			thisTemp.setTag(temporary.getTag());
+			thisTemp.setCategory(temporary.getCategory());
 			thisTemp.setBudget(temporary.getBudget());
 			
 			return tempRepo.save(thisTemp);
